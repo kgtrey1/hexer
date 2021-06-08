@@ -9,7 +9,7 @@
 #include "Curses.hpp"
 #include "Window.hpp"
 
-int main(int ac, const char **av)
+int main(__attribute((unused))int ac, const char **av)
 {
     Hexer hex(av[1]);
     std::vector<std::vector<uint8_t>> hexdump = hex.getDump();

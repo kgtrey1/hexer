@@ -27,7 +27,7 @@ class Hexer {
         int __pageSize;
         char *__fileContent;
 
-        std::vector<uint8_t> stringToCharVec(uint64_t offset);
+        std::vector<uint8_t> stringToCharVec(int64_t offset);
         void parseFile(void);
 };
 

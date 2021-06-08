@@ -32,11 +32,11 @@ Hexer::~Hexer()
     return;
 }
 
-std::vector<unsigned char> Hexer::stringToCharVec(uint64_t offset)
+std::vector<unsigned char> Hexer::stringToCharVec(int64_t offset)
 {
     std::vector<unsigned char> line;
 
-    for (uint64_t i = offset; i < this->__fileSize && i < offset + 16; i++)
+    for (int64_t i = offset; i < this->__fileSize && i < offset + 16; i++)
         line.push_back((unsigned char)this->__fileContent[i]);
     return (line);
 }
@@ -46,7 +46,7 @@ void Hexer::parseFile(void)
 {
     std::vector<unsigned char> line;
 
-    for (uint64_t i = 0; i < this->__fileSize; i = i + 16)
+    for (int64_t i = 0; i < this->__fileSize; i = i + 16)
         this->__dump.push_back(this->stringToCharVec(i));
     return;
 }

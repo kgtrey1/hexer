@@ -6,6 +6,7 @@
 */
 
 #include "Curses.hpp"
+#include "Colors.hpp"
 
 Curses::Curses() :
 __x(COLS), __y(LINES)
@@ -15,7 +16,7 @@ __x(COLS), __y(LINES)
     curs_set(0);
     start_color();
     keypad(stdscr, TRUE);
-    init_pair(1, COLOR_YELLOW, COLOR_GREEN);
+    init_pair(SELECTED, COLOR_YELLOW, COLOR_GREEN);
 }
 
 Curses::~Curses() {

@@ -27,6 +27,7 @@ class Window {
         WINDOW *__win;
         struct Vector2 __cursor;
         struct Vector2 __internal;
+        int64_t __currentOffset;
 };
 
 #endif /* !WINDOW_HPP_ */
