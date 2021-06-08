@@ -47,15 +47,20 @@ void Hexer::parseFile(void)
     std::vector<unsigned char> line;
 
     for (uint64_t i = 0; i < this->__fileSize; i = i + 16)
-        this->__parsedFile.push_back(this->stringToCharVec(i));
+        this->__dump.push_back(this->stringToCharVec(i));
     return;
 }
 
 void Hexer::dumpFile(void) const
 {
-    for (auto line: this->__parsedFile) {
+    for (auto line: this->__dump) {
         for (unsigned char c : line)
             printf("%02X ", c);
         printf("\n");
     }
+}
+
+std::vector<std::vector<uint8_t>> Hexer::getDump(void) const
+{
+    return (this->__dump);
 }

@@ -15,6 +15,8 @@ TESTS_NAME	=	unit_tests
 
 SRC		=	src/main.cpp	\
 			src/Hexer.cpp	\
+			src/Curses.cpp	\
+			src/Window.cpp	\
 
 TESTS	=	\
 

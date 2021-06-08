@@ -19,14 +19,15 @@ class Hexer {
         Hexer(const char *fileName);
         ~Hexer();
         void dumpFile(void) const;
+        std::vector<std::vector<uint8_t>> getDump(void) const;
     private:
         std::ifstream __file;
         std::streamsize __fileSize;
-        std::vector<std::vector<unsigned char>> __parsedFile;
+        std::vector<std::vector<unsigned char>> __dump;
         int __pageSize;
         char *__fileContent;
 
-        std::vector<unsigned char> stringToCharVec(uint64_t offset);
+        std::vector<uint8_t> stringToCharVec(uint64_t offset);
         void parseFile(void);
 };
 

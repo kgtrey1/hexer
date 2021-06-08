@@ -6,12 +6,22 @@
 */
 
 #include "Hexer.hpp"
+#include "Curses.hpp"
+#include "Window.hpp"
 
 int main(int ac, const char **av)
 {
     Hexer hex(av[1]);
+    std::vector<std::vector<uint8_t>> hexdump = hex.getDump();
+    Curses ncurses;
+    Window hexView(LINES - 1, 82, 0, 0);
 
-    std::cout << "start of dump\n" << std::endl;
-    hex.dumpFile();
+    do {
+        hexView.drawTopbar();
+        hexView.drawHex(hexdump);
+        hexView.drawBorder();
+        refresh();
+    }
+    while (getch() != 'q');
     return (0);
 }
