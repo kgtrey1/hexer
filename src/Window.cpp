@@ -16,6 +16,7 @@ Window::Window(int height, int width, int hOffset, int wOffset)
     this->__internal.x = 0;
     this->__internal.y = 0;
     this->__currentOffset = 0;
+    keypad(this->__win, TRUE);
     start_color();
     init_pair(SELECTED, COLOR_YELLOW, COLOR_BLACK);
 }
@@ -69,7 +70,7 @@ void Window::printVStringDec(const std::vector<uint8_t> &s)
 void Window::printVStringHex(const std::vector<uint8_t> &s)
 {
     for (uint8_t c : s) {
-        if (this->__cursor.x - 11 == this->__internal.x && this->__cursor.y - 2 == this->__internal.y) {
+        if (this->__cursor.x - 11 == this->__internal.x * 3 && this->__cursor.y - 2 == this->__internal.y) {
             wattron(this->__win, COLOR_PAIR(SELECTED));
             mvwprintw(this->__win, this->__cursor.y, this->__cursor.x, "%02X", c);
             wattroff(this->__win, COLOR_PAIR(SELECTED));
@@ -106,4 +107,43 @@ void Window::drawHex(const std::vector<std::vector<uint8_t>> &dump)
         this->printVStringDec(dump.at(i));
         this->__cursor.y = this->__cursor.y + 1;
     }
+}
+
+void Window::handleEvent(int currentKey)
+{
+/*
+    if (currentKey == KEY_UP) {
+        if (this->__currentOffset != 0) {
+            if (this->__internal.y == 0)
+                this->__currentOffset--;
+            else
+                this->__internal.y--;
+        }
+    }*/
+
+    if (currentKey == KEY_UP) {
+        
+        if (this->__internal.y != 0) {
+                this->__internal.y--;
+        }
+        else if (this->__internal.y == 0  && this->__currentOffset != 0)
+            this->__currentOffset--;
+
+    }
+    if (currentKey == KEY_DOWN) {
+        if (this->__internal.y == LINES - 5)
+            this->__currentOffset++;
+        else
+            this->__internal.y++;
+
+    }
+    if (currentKey == KEY_RIGHT) {
+        if (this->__internal.x < 15)
+            this->__internal.x++;
+    }
+    if (currentKey == KEY_LEFT) {
+        if (this->__internal.x != 0)
+            this->__internal.x--;
+    }
+    return;
 }

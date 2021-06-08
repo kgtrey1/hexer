@@ -22,7 +22,7 @@ class Window {
         void printVStringHex(const std::vector<uint8_t> &s);
         void drawTopbar(void);
         void drawHex(const std::vector<std::vector<uint8_t>> &dump);
-
+        void handleEvent(int pressedKey);
     private:
         WINDOW *__win;
         struct Vector2 __cursor;
