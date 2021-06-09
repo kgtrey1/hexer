@@ -8,6 +8,7 @@
 #include "Hexer.hpp"
 #include "Curses.hpp"
 #include "Window.hpp"
+#include "Typecaster.hpp"
 
 int main(__attribute((unused))int ac, const char **av)
 {
@@ -16,6 +17,8 @@ int main(__attribute((unused))int ac, const char **av)
     std::vector<std::vector<uint8_t>> hexdump = hex.getDump();
     Curses ncurses;
     Window hexView(LINES - 1, 82, 0, 0);
+    Typecaster valView(8, 25, 0, 90);
+    std::vector<uint8_t> data;
 
     do {
         clear();
@@ -23,6 +26,9 @@ int main(__attribute((unused))int ac, const char **av)
         hexView.drawTopbar();
         hexView.drawHex(hexdump);
         hexView.drawBorder();
+        data = hexView.getNextBytes(hexdump);
+        valView.inspectData(data);
+        valView.drawBorder();
         refresh();
         currentKey = getch();
     }

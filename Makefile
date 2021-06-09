@@ -13,10 +13,11 @@ LDFLAGS		=	-lncurses
 BINARY_NAME	=	hexer
 TESTS_NAME	=	unit_tests
 
-SRC		=	src/main.cpp	\
-			src/Hexer.cpp	\
-			src/Curses.cpp	\
-			src/Window.cpp	\
+SRC		=	src/main.cpp		\
+			src/Hexer.cpp		\
+			src/Curses.cpp		\
+			src/Window.cpp		\
+			src/Typecaster.cpp	\
 
 TESTS	=	\
 

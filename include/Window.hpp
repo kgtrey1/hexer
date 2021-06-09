@@ -23,6 +23,7 @@ class Window {
         void drawTopbar(void);
         void drawHex(const std::vector<std::vector<uint8_t>> &dump);
         void handleEvent(int pressedKey);
+        std::vector<uint8_t> getNextBytes(std::vector<std::vector<uint8_t>> dump) const;
     private:
         WINDOW *__win;
         struct Vector2 __cursor;

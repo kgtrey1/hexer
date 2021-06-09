@@ -19,6 +19,7 @@ Window::Window(int height, int width, int hOffset, int wOffset)
     keypad(this->__win, TRUE);
     start_color();
     init_pair(SELECTED, COLOR_YELLOW, COLOR_BLACK);
+    init_pair(MENU, COLOR_BLACK, COLOR_WHITE);
 }
 
 Window::~Window()
@@ -89,7 +90,13 @@ void Window::drawTopbar(void)
 {
     this->__cursor.x = 1;
     this->__cursor.y = 1;
+        wattron(this->__win, A_BOLD);
+    wattron(this->__win, COLOR_PAIR(MENU));
+
     this->printString("Offset    00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F   strings from file\n");
+            wattroff(this->__win, A_BOLD);
+
+    wattroff(this->__win, COLOR_PAIR(MENU));
     return;
 }
 
@@ -100,8 +107,13 @@ void Window::drawHex(const std::vector<std::vector<uint8_t>> &dump)
     for (uint64_t i = this->__currentOffset; i < this->__currentOffset + LINES - 3; i++) {
         memset((void *)offset, 0, 10);
         this->__cursor.x = 1;
-        sprintf(offset, "%08X  ", (this->__currentOffset + i) * 16);
+        wattron(this->__win, COLOR_PAIR(MENU));
+        wattron(this->__win, A_BOLD);
+        sprintf(offset, "%08X ", (this->__currentOffset + i) * 16);
         this->printString(offset);
+        wattroff(this->__win, A_BOLD);
+        wattroff(this->__win, COLOR_PAIR(MENU));
+        this->printString(" ");
         this->printVStringHex(dump.at(i));
         this->__cursor.x = this->__cursor.x + 2;
         this->printVStringDec(dump.at(i));
@@ -146,4 +158,22 @@ void Window::handleEvent(int currentKey)
             this->__internal.x--;
     }
     return;
+}
+
+std::vector<uint8_t> Window::getNextBytes(std::vector<std::vector<uint8_t>> dump) const
+{
+    std::vector<uint8_t> bytes;
+    Vector2 vec;
+
+    vec.x = this->__internal.x;
+    vec.y = this->__internal.y;
+    for (int copied = 0; copied != 8; copied++) {
+        bytes.push_back(dump.at(vec.y).at(vec.x));
+        vec.x++;
+        if (vec.x == 16) {
+            vec.y++;
+            vec.x = 0;
+        }
+    }
+    return (bytes);
 }

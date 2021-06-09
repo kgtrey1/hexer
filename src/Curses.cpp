@@ -17,6 +17,9 @@ __x(COLS), __y(LINES)
     start_color();
     keypad(stdscr, TRUE);
     init_pair(SELECTED, COLOR_YELLOW, COLOR_GREEN);
+    //init_pair(3, COLOR_BLACK, COLOR_WHITE);
+    //bkgd(C)
+    //attron(COLOR_PAIR(3));
 }
 
 Curses::~Curses() {

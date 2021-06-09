@@ -9,5 +9,6 @@
 #define COLORS_HPP_
 
 #define SELECTED    1
+#define MENU        2
 
 #endif /* !COLORS_HPP_ */
